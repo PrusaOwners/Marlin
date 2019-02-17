@@ -1232,7 +1232,13 @@
     #define Y_HOMING_SENSITIVITY  3
     #define Z_HOMING_SENSITIVITY  4
         
-    // Uncomment this to enable a custom (typically reduced) motor current during sensorless homing
+    /**
+     * SENSORLESS_HOMING_CURRENT allows setting a different stepper current during
+     * the homing process. This can reduce the force applied when the motor hits
+     * the travel limit. Change the -1 to a positive value to override the current
+     * during homing for that access. All currents are restored to their original 
+     * value after homing.
+     */
     #define SENSORLESS_HOMING_CURRENT
     #if ENABLED(SENSORLESS_HOMING_CURRENT)
         #define X_HOMING_CURRENT    149
