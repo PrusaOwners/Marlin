@@ -1231,9 +1231,14 @@
     #define X_HOMING_SENSITIVITY  3
     #define Y_HOMING_SENSITIVITY  3
     #define Z_HOMING_SENSITIVITY  4
-    #define X_HOMING_CURRENT    149
-    #define Y_HOMING_CURRENT    182
-    #define Z_HOMING_CURRENT    348
+        
+    // Uncomment this to enable a custom (typically reduced) motor current during sensorless homing
+    #define SENSORLESS_HOMING_CURRENT
+    #if ENABLED(SENSORLESS_HOMING_CURRENT)
+        #define X_HOMING_CURRENT    149
+        #define Y_HOMING_CURRENT    182
+        #define Z_HOMING_CURRENT    348
+    #endif
   #endif
 
   /**

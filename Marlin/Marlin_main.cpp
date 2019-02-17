@@ -4268,7 +4268,7 @@ inline void gcode_G28(const bool always_home_all) {
     extruder_duplication_enabled = false;
   #endif
 
-  #if ENABLED(SENSORLESS_HOMING)
+  #if ENABLED(SENSORLESS_HOMING_CURRENT) && ENABLED(SENSORLESS_HOMING)
     #if AXIS_IS_TMC(X) && X_HOMING_CURRENT > 0
       const uint16_t X_current = stepperX.getCurrent();
       stepperX.setCurrent(X_HOMING_CURRENT, R_SENSE, HOLD_MULTIPLIER);
@@ -4423,7 +4423,7 @@ inline void gcode_G28(const bool always_home_all) {
 
   clean_up_after_endstop_or_probe_move();
 
-  #if ENABLED(SENSORLESS_HOMING)
+  #if ENABLED(SENSORLESS_HOMING_CURRENT) && ENABLED(SENSORLESS_HOMING)
     #if AXIS_IS_TMC(X) && X_HOMING_CURRENT > 0
       stepperX.setCurrent(X_current, R_SENSE, HOLD_MULTIPLIER);
     #endif
