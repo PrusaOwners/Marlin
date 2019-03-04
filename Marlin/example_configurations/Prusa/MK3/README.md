@@ -251,6 +251,7 @@ The following tables shows all changes from Marlin 1.1.9 default values.
 |DEFAULT_NOMINAL_FILAMENT_DIA |1.75                     |Generally expected filament diameter.
 |TEMP_SENSOR_0                |5                        |Hotend thermistor type (E3D)
 |TEMP_SENSOR_BED              |1                        |Bed thermistor type
+|TEMP_SENSOR_CHAMBER          |104                      |Ambient thermistor type
 |PINDA_THERMISTOR             |+                        |Enable newly added support for the PINDA (Z-probe) thermistor
 |TEMP_PINDA_PIN               |1                        |PINDA thermistor is on Analog input 1 (A1)
 |TEMP_SENSOR_PINDA            |+                        |Leave this enabled
@@ -281,11 +282,12 @@ The following tables shows all changes from Marlin 1.1.9 default values.
 |DEFAULT_TRAVEL_ACCELERATION  |1250                     |Default acceleration for non-printing moves
 |DEFAULT_ZJERK                |0.4                      |Default jerk for Z moves
 |DEFAULT_EJERK                |2.5                      |Default jerk for E moves
-|S_CURVE_ACCELERATION         |+                        |Enables S-curve acceleration (NOTE: Let's disable for now)
+|S_CURVE_ACCELERATION         |+                        |Enables S-curve acceleration
 |FIX_MOUNTED_PROBE            |+                        |Z-probe (PINDA2) is fixed and does not require automatic deployment
 |X_PROBE_OFFSET_FROM_EXTRUDER |23                       |Z-probe X offset: -left  +right  [of the nozzle]
 |Y_PROBE_OFFSET_FROM_EXTRUDER |5                        |Z-probe Y offset: -front +behind [the nozzle]
 |Z_PROBE_OFFSET_FROM_EXTRUDER |0                        |Z-probe Z offset. Set to zero because we are using babystep z-offset, and this most closely matches the prusa behavior.
+|MIN_PROBE_EDGE               |0                        |Certain types of probes need to stay away from edges
 |XY_PROBE_SPEED               |10000                    |X and Y axis travel speed (mm/m) between z-probes
 |Z_PROBE_SPEED_SLOW           |(Z_PROBE_SPEED_FAST / 4) |Feedrate for the slow, more accurate movement during probing
 |MULTIPLE_PROBING             |2                        |Number of probes at each point (doesn't Prusa do 3?)
@@ -302,12 +304,16 @@ The following tables shows all changes from Marlin 1.1.9 default values.
 |X_MAX_POS                    |255                      |Travel limits after homing
 |Y_MAX_POS                    |212.5                    |Travel limits after homing
 |Z_MAX_POS                    |210                      |Travel limits after homing
+|FIL_RUNOUT_PIN               |62                       |Valid for newer Prusa MK3S filament sensor
+|FIL_RUNOUT_INVERTING         |true                     |MK3S sensor asserts high/true on runout
 |AUTO_BED_LEVELING_BILINEAR   |+                        |Bed leveling with bilinear interpolation
 |GRID_MAX_POINTS_X            |5                        |5x5 grid for mesh bed leveling (GRID_MAX_POINTS_Y == GRID_MAX_POINTS_X)
 |LEFT_PROBE_BED_POSITION      |35                       |Set area for probing of bed during mesh leveling
 |RIGHT_PROBE_BED_POSITION     |238                      |Set area for probing of bed during mesh leveling
 |FRONT_PROBE_BED_POSITION     |6                        |Set area for probing of bed during mesh leveling
 |BACK_PROBE_BED_POSITION      |202                      |Set area for probing of bed during mesh leveling
+|MESH_INSET                   |0                        |Set Mesh bounds as an inset region of the bed
+|GRID_MAX_POINTS_X            |5                        |Don't use more than 15 points per axis, implementation limited.
 |Z_SAFE_HOMING                |+                        |Only allows Z homing after X/Y homing and if motors have not timed out.
 |HOMING_FEEDRATE_Z            |8*60                     |Homing speed for Z (8 mm/s, 480 mm/m)
 |SKEW_CORRECTION_GCODE        |+                        |Enables user to set skew at runtime via M852
@@ -324,8 +330,6 @@ The following tables shows all changes from Marlin 1.1.9 default values.
 |INDIVIDUAL_AXIS_HOMING_MENU  |+                        |Adds individual axis homing items to the menu
 |SPEAKER                      |+                        |MK3 has a speaker that can produce tones
 |REPRAP_DISCOUNT_SMART_CONTROLLER |+                    |Using a RepRapDiscount Smart LCD/Controller
-|PINDA_TEMP_SMOOTHING         |+                        |New option that filters noise in PINDA temperature measurements
-|PINDA_TEMP_SMOOTHING_DIV_LOG2|6                        |Controls the running average used to filter noise in PINDA temperature measurements
 
 
 ### Configuration_adv.h
@@ -356,7 +360,8 @@ The following tables shows all changes from Marlin (1.1.9) default values.
 |BABYSTEP_ZPROBE_OFFSET       |+                        |Combines M851 and babystepping (makes it closer to Prusa's Live-Z)
 |DOUBLECLICK_FOR_Z_BABYSTEPPING|+                       |Double-click on status screen goes to Z babystepping menu
 |DOUBLECLICK_MAX_INTERVAL     |2000                     |Increases slightly the allowed delay to detect a double-click. This is the value that TH3D is using in their Marlin firmware.
-|LIN_ADVANCE                  |+                        |Enable linear advance (woohoo!)
+|LIN_ADVANCE                  |+                        |Enable linear advance
+|LIN_ADVANCE_K                |0                        |Unit: mm compression per 1mm/s extruder speed
 |MESH_MIN_X                   |35                       |X axis lower inset for mesh bed leveling
 |MESH_MIN_Y                   |6                        |Y axis lower inset for mesh bed leveling
 |MESH_MAX_X                   |238                      |X axis upper inset (as bed size minus upper inset)
@@ -365,6 +370,15 @@ The following tables shows all changes from Marlin (1.1.9) default values.
 |MINIMUM_STEPPER_PULSE        |0                        |Set to value listed as appropriate for TMC2xxx drivers
 |MAXIMUM_STEPPER_RATE         |400000                   |Set to the maximum value listed as appropriate for TMC2xxx drivers
 |ADVANCED_PAUSE_FEATURE       |+                        |Experimental feature for filament change support and for parking the nozzle when paused
+|FILAMENT_CHANGE_UNLOAD_FEEDRATE    |120                |(mm/s) Unload filament feedrate. This can be pretty fast.
+|FILAMENT_CHANGE_UNLOAD_ACCEL       |800                |(mm/s^2) Lower acceleration may allow a faster feedrate.
+|FILAMENT_CHANGE_UNLOAD_LENGTH      | 80                |(mm) The length of filament for a complete unload.
+|FILAMENT_CHANGE_SLOW_LOAD_LENGTH   |  3                |(mm) Slow length, to allow time to insert material.
+|FILAMENT_CHANGE_FAST_LOAD_FEEDRATE | 18                |(mm/s) Load filament feedrate. This can be pretty fast.
+|FILAMENT_CHANGE_FAST_LOAD_LENGTH   | 63                |(mm) Load length of filament, from extruder gear to nozzle.
+|FILAMENT_UNLOAD_RETRACT_LENGTH     |  0                |(mm) Unload initial retract length.
+|FILAMENT_UNLOAD_DELAY              |  0                |(ms) Delay for the filament to cool after retract.
+|FILAMENT_UNLOAD_PURGE_LENGTH       |  3                |(mm) An unretract is done, then this length is purged.
 |PARK_HEAD_ON_PAUSE           |+                        |Park the nozzle during pause and filament change.
 |HOME_BEFORE_FILAMENT_CHANGE  |+                        |Ensure homing has been completed prior to parking for filament change
 |FILAMENT_LOAD_UNLOAD_GCODES  |+                        |Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
@@ -387,6 +401,12 @@ The following table lists the changes to TMC2130 motor driver settings (also in 
 |Y_HOMING_SENSITIVITY         |3                        |Y homing sensitivity. Higher values make system less sensitive.
 |Z_HOMING_SENSITIVITY         |3                        |Z homing sensitivity. Higher values make system less sensitive.
 |TMC_Z_CALIBRATION            |+                        |Enables Z calibration that Prusa does (ram into top of Z axis, then home Z via PINDA)
+|SENSORLESS_HOMING_CURRENT    |+                        |Use lower current for homing moves
+|X_HOMING_CURRENT             |149                      |
+|Y_HOMING_CURRENT             |182                      |
+|Z_HOMING_CURRENT             |348                      |
 |CALIBRATION_CURRENT          |348                      |Z steppers are set to this current during Z calibration
 |TMC_ADV                      |(see Notes)              |This is a way of adding additional calls to tmc2130 class methods to set various custom values. See Configuration_adv.h for details (too numerous to list here)
+
+
 
