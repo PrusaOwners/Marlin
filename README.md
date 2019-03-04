@@ -1,4 +1,6 @@
-**Find all information on how to build and use our Pursa-optimized Marlin firmware version in the [Prusa specific README.md](Marlin/example_configurations/Prusa/README.md)**
+**Find all information on how to build and use our Pursa-optimized Marlin firmware version in the Prusa specific README.md files:**
+- [MK2.5 README.md](Marlin/example_configurations/Prusa/MK2.5-RAMBO-1.3/README.md)
+- [MK3 README.md](Marlin/example_configurations/Prusa/MK3/README.md)
 
 # Marlin 3D Printer Firmware
 <img align="right" src="../../raw/1.1.x/buildroot/share/pixmaps/logo/marlin-250.png" />
