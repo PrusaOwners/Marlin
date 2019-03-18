@@ -1,4 +1,4 @@
-**Find all information on how to build and use our Pursa-optimized Marlin firmware version in the Prusa specific README.md files:**
+**Find all information on how to build and use our Prusa-optimized Marlin firmware version in the Prusa-specific README.md files:**
 - [MK2.5 README.md](Marlin/example_configurations/Prusa/MK2.5-RAMBO-1.3/README.md)
 - [MK3 README.md](Marlin/example_configurations/Prusa/MK3/README.md)
 
