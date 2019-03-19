@@ -1,3 +1,6 @@
+**Find all information on how to build and use our Prusa-optimized Marlin 2.0.x firmware version in the Prusa-specific README.md files:**
+- [MK3 README.md](config/examples/Prusa/i3-MK3/README.md)
+
 # Marlin 3D Printer Firmware
 
 [![Build Status](https://travis-ci.org/MarlinFirmware/Marlin.svg?branch=RCBugFix)](https://travis-ci.org/MarlinFirmware/Marlin)
