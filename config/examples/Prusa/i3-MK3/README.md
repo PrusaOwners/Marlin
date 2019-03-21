@@ -38,6 +38,67 @@ The following tables shows all changes from Marlin bugfix-2.0.x default values.
 |DEFAULT_RETRACT_ACCELERATION |1250                     |3000
 |DEFAULT_TRAVEL_ACCELERATION  |1250                     |3000
 |JUNCTION_DEVIATION           |                         |(commented out)
+|DEFAULT_ZJERK                |0.4                      |0.3
+|DEFAULT_EJERK                |2.5                      |5.0
+|S_CURVE_ACCELERATION         |                         |(commented out)
+|FIX_MOUNTED_PROBE            |                         |(commented out)
+|X_PROBE_OFFSET_FROM_EXTRUDER |23                       |10
+|Y_PROBE_OFFSET_FROM_EXTRUDER |5                        |10
+|MIN_PROBE_EDGE               |0                        |10
+|XY_PROBE_SPEED               |???                      |8000
+|Z_PROBE_SPEED_SLOW           |???                      |(Z_PROBE_SPEED_FAST / 2)
+|MULTIPLE_PROBING             |???                      |2 (commented out)
+|Z_CLEARANCE_DEPLOY_PROBE     |2                        |10
+|Z_CLEARANCE_BETWEEN_PROBES   |2                        |5
+|Z_CLEARANCE_MULTI_PROBE      |1                        |5
+|Z_PROBE_LOW_POINT            |-1                       |-2
+|Z_PROBE_OFFSET_RANGE_MIN     |-3                       |-20
+|Z_PROBE_OFFSET_RANGE_MAX     |0                        |20
+|INVERT_X_DIR                 |true                     |false
+|INVERT_Y_DIR                 |false                    |true
+|INVERT_Z_DIR                 |true                     |false
+|X_BED_SIZE                   |250                      |200
+|Y_BED_SIZE                   |210                      |200
+|Y_MIN_POS                    |-4                       |0
+|Z_MIN_POS                    |0.15                     |0
+|X_MAX_POS                    |255                      |X_BED_SIZE
+|Y_MAX_POS                    |212.5                    |Y_BED_SIZE
+|Z_MAX_POS                    |210                      |200
+|FIL_RUNOUT_INVERTING         |true                     |false
+|AUTO_BED_LEVELING_BILINEAR   |                         |(commented out)
+|GRID_MAX_POINTS_X            |4                        |3
+]GRID_MAX_POINTS_Y            |6                        |GRID_MAX_POINTS_X
+|LEFT_PROBE_BED_POSITION      |24                       |MIN_PROBE_EDGE
+|RIGHT_PROBE_BED_POSITION     |228                      |(X_BED_SIZE - (MIN_PROBE_EDGE))
+|FRONT_PROBE_BED_POSITION     |6                        |MIN_PROBE_EDGE
+|BACK_PROBE_BED_POSITION      |210                      |(Y_BED_SIZE - (MIN_PROBE_EDGE))
+|MESH_INSET                   |0                        |1
+|GRID_MAX_POINTS_X            |4                        |10
+|GRID_MAX_POINTS_Y            |6                        |GRID_MAX_POINTS_X
+|Z_SAFE_HOMING                |                         |(commented out)
+|HOMING_FEEDRATE_XY           |???                      |(50*60)
+|HOMING_FEEDRATE_Z            |???                      |(4*60)
+|SKEW_CORRECTION              |                         |(commented out)
+|SKEW_CORRECTION_FOR_Z        |                         |(commented out)
+|SKEW_CORRECTION_GCODE        |                         |(commented out)
+|EEPROM_SETTINGS              |                         |(commented out)
+|PREHEAT_1_TEMP_HOTEND        |215                      |180
+|PREHEAT_1_TEMP_BED           |60                       |70
+|PREHEAT_2_LABEL              |"PET"                    |"ABS"
+|PREHEAT_2_TEMP_HOTEND        |230                      |240
+|PREHEAT_2_TEMP_BED           |85                       |110
+|NOZZLE_PARK_FEATURE          |                         |(commented out)
+|LCD_INFO_SCREEN_STYLE        |1                        |0
+|SDSUPPORT                    |                         |(commented out)
+|SD_CHECK_AND_RETRY           |                         |(commented out)
+|ENCODER_PULSES_PER_STEP      |4                        |4 (commented out)
+|REVERSE_ENCODER_DIRECTION    |                         |(commented out)
+|INDIVIDUAL_AXIS_HOMING_MENU  |                         |(commented out)
+|||
+|||
+|||
+|||
+|||
 |||
 |||
 |||
