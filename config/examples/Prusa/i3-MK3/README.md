@@ -94,14 +94,24 @@ The following tables shows all changes from Marlin bugfix-2.0.x default values.
 |ENCODER_PULSES_PER_STEP      |4                        |4 (commented out)
 |REVERSE_ENCODER_DIRECTION    |                         |(commented out)
 |INDIVIDUAL_AXIS_HOMING_MENU  |                         |(commented out)
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
+|SPEAKER                      |                         |(commented out)
+|REPRAP_DISCOUNT_SMART_CONTROLLER|                      |(commented out)
+
+### Configuration_adv.h
+
+The following tables shows all changes from Marlin bugfix-2.0.x default values.
+
+|Symbol                       |Value                    |Default
+|-----------------------------|-------------------------|-------
+|PID_EXTRUSION_SCALING        |                         |(commented out)
+|DEFAULT_Kc                   |(1)                      |(100)
+|AUTOTEMP                     |(commented out)          |(uncommented)
+|FAN_KICKSTART_TIME           |800                      |100 (commented out)
+|E0_AUTO_FAN_PIN              |8                        |-1
+|FAN_PIN                      |6                        |8 (in pins_EINSY_RAMBO.h)
+|FAN1_PIN                     |-1                       |6 (in pins_EINSY_RAMBO.h)
+|X_HOME_BUMP_MM               |0                        |5
+|Y_HOME_BUMP_MM               |0                        |5
+|Z_HOME_BUMP_MM               |1                        |2
+|DEFAULT_STEPPER_DEACTIVE_TIME |60                      |120
+|HOME_AFTER_DEACTIVATE        |                         |(uncommented)
