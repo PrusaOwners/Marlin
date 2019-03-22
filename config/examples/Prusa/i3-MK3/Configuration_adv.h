@@ -108,7 +108,7 @@
   /**
    * As described above, except for the bed (M140/M190/M303).
    */
-  #define WATCH_BED_TEMP_PERIOD 60                // Seconds
+  #define WATCH_BED_TEMP_PERIOD 90                // Seconds
   #define WATCH_BED_TEMP_INCREASE 2               // Degrees Celsius
 #endif
 
@@ -1680,8 +1680,8 @@
   //#define SENSORLESS_PROBING // TMC2130 only
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
-    #define X_STALL_SENSITIVITY  3
-    #define Y_STALL_SENSITIVITY  3
+    #define X_STALL_SENSITIVITY  2
+    #define Y_STALL_SENSITIVITY  2
     //#define Z_STALL_SENSITIVITY  4
   #endif
 

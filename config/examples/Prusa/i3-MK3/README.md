@@ -44,9 +44,9 @@ The following tables shows all changes from Marlin bugfix-2.0.x default values.
 |X_PROBE_OFFSET_FROM_EXTRUDER |23                       |10
 |Y_PROBE_OFFSET_FROM_EXTRUDER |5                        |10
 |MIN_PROBE_EDGE               |0                        |10
-|XY_PROBE_SPEED               |???                      |8000
-|Z_PROBE_SPEED_SLOW           |???                      |(Z_PROBE_SPEED_FAST / 2)
-|MULTIPLE_PROBING             |???                      |2 (commented out)
+|XY_PROBE_SPEED               |10000                    |8000
+|Z_PROBE_SPEED_SLOW           |(Z_PROBE_SPEED_FAST / 4) |(Z_PROBE_SPEED_FAST / 2)
+|MULTIPLE_PROBING             |2                      |2 (commented out)
 |Z_CLEARANCE_DEPLOY_PROBE     |2                        |10
 |Z_CLEARANCE_BETWEEN_PROBES   |2                        |5
 |Z_CLEARANCE_MULTI_PROBE      |1                        |5
@@ -66,6 +66,8 @@ The following tables shows all changes from Marlin bugfix-2.0.x default values.
 |FIL_RUNOUT_PIN               |62                       |(not explicitly defined)
 |FIL_RUNOUT_INVERTING         |true                     |false
 |AUTO_BED_LEVELING_BILINEAR   |(uncommented)            |(commented out)
+|G26_MESH_VALIDATION          |(uncommented)            |(commented out)
+|MESH_TEST_HOTEND_TEMP        |205                      |215
 |GRID_MAX_POINTS_X            |4                        |3
 ]GRID_MAX_POINTS_Y            |6                        |GRID_MAX_POINTS_X
 |LEFT_PROBE_BED_POSITION      |24                       |MIN_PROBE_EDGE
@@ -76,8 +78,7 @@ The following tables shows all changes from Marlin bugfix-2.0.x default values.
 |GRID_MAX_POINTS_X            |4                        |10
 |GRID_MAX_POINTS_Y            |6                        |GRID_MAX_POINTS_X
 |Z_SAFE_HOMING                |(uncommented)            |(commented out)
-|HOMING_FEEDRATE_XY           |???                      |(50*60)
-|HOMING_FEEDRATE_Z            |???                      |(4*60)
+|HOMING_FEEDRATE_Z            |(8*60)                   |(4*60)
 |SKEW_CORRECTION              |(uncommented)            |(commented out)
 |SKEW_CORRECTION_FOR_Z        |(uncommented)            |(commented out)
 |SKEW_CORRECTION_GCODE        |(uncommented)            |(commented out)
@@ -103,6 +104,7 @@ The following tables shows all changes from Marlin bugfix-2.0.x default values.
 
 |Symbol                       |Value                    |Default
 |-----------------------------|-------------------------|-------
+|WATCH_BED_TEMP_PERIOD        |90                       |60 
 |PID_EXTRUSION_SCALING        |(uncommented)            |(commented out)
 |DEFAULT_Kc                   |(1)                      |(100)
 |AUTOTEMP                     |(commented out)          |(uncommented)
