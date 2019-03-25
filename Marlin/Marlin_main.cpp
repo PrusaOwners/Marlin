@@ -156,6 +156,7 @@
  * M165 - Set the mix for a mixing extruder wuth parameters ABCDHI. (Requires MIXING_EXTRUDER and DIRECT_MIXING_IN_G1)
  * M190 - Sxxx Wait for bed current temp to reach target temp. ** Waits only when heating! **
  *        Rxxx Wait for bed current temp to reach target temp. ** Waits for heating or cooling. **
+ * M198   Read fan tachometer (RPM) values. Requires FANTACH.
  * M199 - Wait for temperature sensitive bed level sensor to reach target temperature. (Requires PINDA_THERMISTOR)
  * M200 - Set filament diameter, D<diameter>, setting E axis units to cubic. (Use S0 to revert to linear units.)
  * M201 - Set max acceleration in units/s^2 for print moves: "M201 X<accel> Y<accel> Z<accel> E<accel>"
@@ -340,6 +341,10 @@
 
 #if ENABLED(I2C_POSITION_ENCODERS)
   #include "I2CPositionEncoder.h"
+#endif
+
+#if ENABLED(FANTACH)
+  #include "fantachs.h"
 #endif
 
 #if ENABLED(M100_FREE_MEMORY_WATCHER)
@@ -9449,6 +9454,12 @@ inline void gcode_M121() { endstops.enable_globally(false); }
 
 #endif // HAS_COLOR_LEDS
 
+#if ENABLED(FANTACH)
+  inline void gcode_M198() {
+    fantachs.printTachRpms();
+  }
+#endif
+
 #if ENABLED(PINDA_THERMISTOR)
 
   /**
@@ -13016,6 +13027,10 @@ void process_parsed_command() {
         #endif
       #endif
 
+      #if ENABLED(FANTACH)
+        case 198: gcode_M198(); break;                              // M129: Report Fan Tachometer Values
+      #endif
+
       #if ENABLED(PINDA_THERMISTOR)
         case 199: gcode_M199(); break;                            // M119 -  Wait for temperature sensitive bed level sensor to reach target temperature. 
       #endif
@@ -15075,6 +15090,10 @@ void idle(
       #endif
     }
   #endif
+
+  #if ENABLED(FANTACH)
+    fantachs.updateRpm();
+  #endif
 }
 
 /**
@@ -15244,6 +15263,10 @@ void setup() {
   stepper.init();           // Init stepper. This enables interrupts!
 
   servo_init();             // Initialize all servos, stow servo probe
+
+  #if ENABLED(FANTACH)
+    fantachs.init();        // Initialize fan tachometer readings
+  #endif
 
   #if HAS_PHOTOGRAPH
     OUT_WRITE(PHOTOGRAPH_PIN, LOW);

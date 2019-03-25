@@ -247,6 +247,49 @@
 #define EXTRUDER_AUTO_FAN_SPEED   255  // == full speed
 
 /**
+ * Fan Tachometer Readings
+ */
+//#define FANTACH
+#if ENABLED(FANTACH)
+  /**
+   * Enable and define pins for extruder and print fan tachometers. 
+   */
+  //#define TACH_E0_PIN 79
+  //#define TACH_E1_PIN -1
+  //#define TACH_0_PIN 80
+  //#define TACH_1_PIN -1
+
+  /**
+   * Define the number of tachometer pulses for each rotation of the fan. 
+   * This varies depending on the fan. Fans typically have 2 or 3 hall-effect 
+   * sensors, leading to 2 or 3 pulses per rotation. value for a fan with a 
+   * known approximate RPM value, is set this to some reasonable value, and then
+   * scale it based on the reading you get.
+   */
+  #define TACH_E0_PPR 2
+  #define TACH_E1_PPR 2
+  #define TACH_0_PPR 2
+  #define TACH_1_PPR 2
+
+  /**
+   * Enable pull-up resistor for extruder fan tachometers
+   */
+  //#define TACH_E0_PULLUP
+  //#define TACH_E1_PULLUP
+  //#define TACH_0_PULLUP
+  //#define TACH_1_PULLUP
+
+  /**
+   * Uncomment this if this if all enabled fan tachometer pins support interrupts 
+   * (only normal interrupts, not pin-change interrupts are supported)
+   */
+  //#define FANTACH_INTERRUPT
+
+  // Defines amount of time before fan tach counts are aggregated into an approximate RPM value
+  #define FANTACH_SAMPLE_WINDOW_MS    1000
+#endif
+
+/**
  * Part-Cooling Fan Multiplexer
  *
  * This feature allows you to digitally multiplex the fan output.
