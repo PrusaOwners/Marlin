@@ -411,6 +411,30 @@
   #define CONTROLLER_FAN_PIN  -1
 #endif
 
+#if DISABLED(FANTACH)
+  #undef TACH_E0_PIN
+  #define TACH_E0_PIN    -1
+  #undef TACH_E1_PIN
+  #define TACH_E1_PIN    -1
+  #undef TACH_0_PIN
+  #define TACH_0_PIN    -1
+  #undef TACH_1_PIN
+  #define TACH_1_PIN    -1
+#else  
+  #ifndef TACH_E0_PIN
+    #define TACH_E0_PIN -1
+  #endif
+  #ifndef TACH_E1_PIN
+    #define TACH_E1_PIN -1
+  #endif
+  #ifndef TACH_0_PIN
+    #define TACH_0_PIN -1
+  #endif
+  #ifndef TACH_1_PIN
+    #define TACH_1_PIN -1
+  #endif
+#endif
+
 #ifndef FANMUX0_PIN
   #define FANMUX0_PIN -1
 #endif

@@ -34,6 +34,10 @@
 #include "delay.h"
 #include "endstops.h"
 
+#if ENABLED(FANTACH)
+  #include "fantachs.h"
+#endif
+
 #if ENABLED(HEATER_0_USES_MAX6675)
   #include "MarlinSPI.h"
 #endif
@@ -2360,6 +2364,11 @@ void Temperature::isr() {
 
   // Poll endstops state, if required
   endstops.poll();
+
+  // Poll fantach state, if required
+  #if ENABLED(FANTACH) && DISABLED(FANTACH_INTERRUPT)
+    fantachs.updateCounts();
+  #endif
 
   // Periodically call the planner timer
   planner.tick();

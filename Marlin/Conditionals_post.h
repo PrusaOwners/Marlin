@@ -866,6 +866,25 @@
 #define HAS_FAN2 (PIN_EXISTS(FAN2) && CONTROLLER_FAN_PIN != FAN2_PIN && E0_AUTO_FAN_PIN != FAN2_PIN && E1_AUTO_FAN_PIN != FAN2_PIN && E2_AUTO_FAN_PIN != FAN2_PIN && E3_AUTO_FAN_PIN != FAN2_PIN)
 #define HAS_CONTROLLER_FAN (PIN_EXISTS(CONTROLLER_FAN))
 
+// Fan tachometers
+#define HAS_TACH_E0 (PIN_EXISTS(TACH_E0))
+#define HAS_TACH_E1 (PIN_EXISTS(TACH_E1))
+#define HAS_TACH_0  (PIN_EXISTS(TACH_0))
+#define HAS_TACH_1  (PIN_EXISTS(TACH_1))
+
+#ifndef TACH_E0_PPR
+  #define TACH_E0_PPR 2
+#endif  
+#ifndef TACH_E1_PPR
+  #define TACH_E1_PPR 2
+#endif  
+#ifndef TACH_0_PPR
+  #define TACH_0_PPR 2
+#endif  
+#ifndef TACH_1_PPR
+  #define TACH_1_PPR 2
+#endif  
+
 // Servos
 #define HAS_SERVO_0 (PIN_EXISTS(SERVO0))
 #define HAS_SERVO_1 (PIN_EXISTS(SERVO1))
