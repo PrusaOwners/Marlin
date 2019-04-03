@@ -482,6 +482,10 @@ void GcodeSuite::process_parsed_command(
         case 202: M202(); break;                                  // M202: Not used for Sprinter/grbl gen6
       #endif
 
+      #if HAS_TEMP_PINDA
+        case 199: M199(); break;                                  // M199: Wait for temperature sensitive bed level sensor to reach target temperature
+      #endif
+
       case 203: M203(); break;                                    // M203: Set max feedrate (units/sec)
       case 204: M204(); break;                                    // M204: Set acceleration
       case 205: M205(); break;                                    // M205: Set advanced settings

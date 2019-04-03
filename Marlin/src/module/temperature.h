@@ -115,6 +115,10 @@ enum ADCSensorState : char {
     PrepareTemp_5,
     MeasureTemp_5,
   #endif
+  #if HAS_TEMP_PINDA
+    PrepareTemp_PINDA,
+    MeasureTemp_PINDA,
+  #endif
   #if ENABLED(FILAMENT_WIDTH_SENSOR)
     Prepare_FILWIDTH,
     Measure_FILWIDTH,
@@ -188,6 +192,17 @@ typedef struct HeaterInfo : public TempInfo {
   uint8_t soft_pwm_amount;
 } heater_info_t;
 
+#if HAS_TEMP_PINDA
+// PINDA with temperature sensor
+typedef struct PindaInfo : public TempInfo {
+  int16_t target;
+  #if ENABLED(PINDA_TEMP_SMOOTHING)
+    bool first_sample;
+    uint16_t raw_remainder;
+  #endif
+} pinda_info_t;
+#endif // HAS_TEMP_PINDA
+
 // A heater with PID stabilization
 template<typename T>
 struct PIDHeaterInfo : public HeaterInfo {
@@ -216,6 +231,9 @@ struct PIDHeaterInfo : public HeaterInfo {
   #else
     typedef temp_info_t chamber_info_t;
   #endif
+#endif
+#if HAS_TEMP_PINDA
+  typedef pinda_info_t pinda_info_t;
 #endif
 
 // Heater idle handling
@@ -255,6 +273,10 @@ class Temperature {
 
     #if HAS_TEMP_CHAMBER
       static chamber_info_t temp_chamber;
+    #endif
+
+    #if HAS_TEMP_PINDA
+      static pinda_info_t temp_pinda;
     #endif
 
     #if ENABLED(AUTO_POWER_E_FANS)
@@ -406,6 +428,9 @@ class Temperature {
     #endif
     #if HAS_TEMP_CHAMBER
       static float analog_to_celsius_chamber(const int raw);
+    #endif
+    #if HAS_TEMP_PINDA
+      static float analog_to_celsius_pinda(const int raw);
     #endif
 
     #if FAN_COUNT > 0
@@ -649,6 +674,17 @@ class Temperature {
         FORCE_INLINE static int16_t degTargetChamber() {return temp_chamber.target; }
       #endif
     #endif // HAS_TEMP_CHAMBER
+
+    #if HAS_TEMP_PINDA
+      #if ENABLED(SHOW_TEMP_ADC_VALUES)
+        FORCE_INLINE static int16_t rawPindaTemp() { return temp_pinda.raw; }
+      #endif
+      FORCE_INLINE static float degPinda() { return temp_pinda.current; }
+      FORCE_INLINE static int16_t degTargetPinda()  { return temp_pinda.target; }
+      static void setTargetPinda(const int16_t celsius) {
+        temp_pinda.target = celsius;
+      }
+    #endif // HAS_TEMP_PINDA
 
     FORCE_INLINE static bool still_heating(const uint8_t e) {
       return degTargetHotend(e) > TEMP_HYSTERESIS && ABS(degHotend(e) - degTargetHotend(e)) > TEMP_HYSTERESIS;
