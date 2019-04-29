@@ -1326,33 +1326,18 @@
    * }
    */
   #define TMC_ADV() { \
-    stepperX.high_sense_R(1);\
-    stepperY.high_sense_R(1);\
-    stepperE0.high_sense_R(1);\
-    stepperX.hold_delay(8); \
-    stepperY.hold_delay(8); \
-    stepperZ.hold_delay(8); \
-    stepperE0.hold_delay(8); \
-    stepperX.power_down_delay(0); \
-    stepperY.power_down_delay(0); \
-    stepperZ.power_down_delay(0); \
-    stepperE0.power_down_delay(0); \
-    stepperX.blank_time(24); \
-    stepperY.blank_time(24); \
-    stepperZ.blank_time(24); \
-    stepperE0.blank_time(24); \
     stepperX.off_time(3); \
     stepperY.off_time(3); \
     stepperZ.off_time(3); \
     stepperE0.off_time(3); \
-    stepperX.hysteresis_end(1); \
-    stepperY.hysteresis_end(1); \
-    stepperZ.hysteresis_end(1); \
-    stepperE0.hysteresis_end(1); \
-    stepperX.hysteresis_start(5); \
-    stepperY.hysteresis_start(5); \
-    stepperZ.hysteresis_start(5); \
-    stepperE0.hysteresis_start(5); \
+    stepperX.hysteresis_end(-2); \
+    stepperY.hysteresis_end(-2); \
+    stepperZ.hysteresis_end(-2); \
+    stepperE0.hysteresis_end(-2); \
+    stepperX.hysteresis_start(6); \
+    stepperY.hysteresis_start(6); \
+    stepperZ.hysteresis_start(6); \
+    stepperE0.hysteresis_start(6); \
     stepperX.stealth_freq(2); \
     stepperY.stealth_freq(2); \
     stepperZ.stealth_freq(2); \
@@ -1369,7 +1354,6 @@
     stepperY.stealth_autoscale(true); \
     stepperZ.stealth_autoscale(true); \
     stepperE0.stealth_autoscale(true); \
-    stepperE0.sg_stall_value(3); \
   }
 // sg_stall_value is set a little above for X, Y, Z!
 
